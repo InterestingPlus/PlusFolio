@@ -237,7 +237,7 @@ export function LandingPage() {
                 <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center">
                   <FileText className="w-3.5 h-3.5 text-white" />
                 </div>
-                <span className="font-bold text-white">GetFolio</span>
+                <span className="font-bold text-white">PlusFolio</span>
               </div>
               <p className="text-sm leading-relaxed text-gray-500">
                 Helping professionals craft the perfect narrative for their
@@ -284,7 +284,7 @@ export function LandingPage() {
           </div>
           <div className="border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-xs text-gray-600">
-              &copy; 2024 GetFolio Inc. All rights reserved.
+              &copy; 2024 PlusFolio Inc. All rights reserved.
             </p>
             <div className="flex gap-6 text-xs">
               <a href="#" className="hover:text-white transition-colors">

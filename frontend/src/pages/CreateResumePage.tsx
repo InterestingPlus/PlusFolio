@@ -186,7 +186,7 @@ export function CreateResumePage() {
               <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center">
                 <FileText className="w-3.5 h-3.5 text-white" />
               </div>
-              <span className="font-bold text-gray-900">GetFolio</span>
+              <span className="font-bold text-gray-900">PlusFolio</span>
             </div>
           </div>
           <div className="flex items-center gap-2 text-xs text-gray-400">

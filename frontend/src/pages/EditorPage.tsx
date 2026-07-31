@@ -190,7 +190,7 @@ export function EditorPage() {
                 <FileText className="w-4 h-4 text-white" />
               </div>
               <span className="font-bold text-gray-900 hidden sm:block">
-                GetFolio
+                PlusFolio
               </span>
             </Link>
             <span className="text-gray-300 hidden sm:block">|</span>

@@ -94,7 +94,7 @@ export function SignupPage() {
               <FileText className="w-5 h-5 text-white" />
             </div>
             <span className="font-extrabold text-gray-900 text-xl">
-              GetFolio
+              PlusFolio
             </span>
           </div>
 
