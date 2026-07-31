@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#purple {
+  color: #5022c5;
+}
+#purple-bg {
+  background-color: #5022c5;
+  color: white;
+}
+#purple-gradient {
+  color: transparent !important;
+  background: linear-gradient(90deg, #5022c5 0%, #a855f7 100%);
+  /* background: linear-gradient(90deg, #5022c5 0%, #4B24BD 100%); */
+
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+#black {
+  color: #0d072d;
+}

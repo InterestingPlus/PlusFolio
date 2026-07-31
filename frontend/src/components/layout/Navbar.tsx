@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FileText, LogOut, User } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { Button } from "../ui/Button";
+import Logo from "../../assets/logo.png";
 
 export function Navbar() {
   const { user, signOut } = useAuth();
@@ -17,10 +18,15 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <FileText className="w-4 h-4 text-white" />
+            {/* <FileText className="w-4 h-4 text-white" /> */}
+            {/* <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center"> */}
+            <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center">
+              <img src={Logo} alt="Logo" className="w-6 h-6" />
             </div>
-            <span className="font-bold text-gray-900 text-lg">PlusFolio</span>
+            <span className="font-bold text-lg" id="black">
+              <span id="purple-gradient">Plus</span>
+              Folio
+            </span>
           </Link>
 
           {!user ? (

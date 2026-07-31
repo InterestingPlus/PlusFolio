@@ -19,7 +19,7 @@ export function LandingPage() {
       {/* Hero */}
       <section className="relative bg-gradient-to-b from-slate-50 to-white pt-16 pb-24 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
+          <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-xs font-semibold px-3 py-1.5 rounded-full mb-6" id="purple-gradient">
             <Zap className="w-3 h-3" />
             NEW AI ENGINE V2.0
           </div>
@@ -27,7 +27,7 @@ export function LandingPage() {
           <h1 className="text-5xl sm:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
             Build a Professional Resume
             <br />
-            <span className="text-blue-600">in Minutes with AI</span>
+            <span id="purple">in Minutes with AI</span>
           </h1>
 
           <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-10">
@@ -40,6 +40,7 @@ export function LandingPage() {
               <Button
                 size="lg"
                 className="gap-2 shadow-lg shadow-blue-200 text-base px-8 py-3.5"
+                id="purple-bg"
               >
                 <Sparkles className="w-5 h-5" />
                 Create My Resume
