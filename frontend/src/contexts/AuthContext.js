@@ -1,58 +1,77 @@
-import { createContext, useContext, useEffect, useState } from "react";
-// import { User, Session } from '@supabase/supabase-js';
-import { supabase } from "../lib/supabase";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
+import { authApi } from "../lib/api";
 
 const AuthContext = createContext(undefined);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
+  // 1. Validate session with backend on initial app load
+  const checkSession = useCallback(async () => {
+    setLoading(true);
+    const { data, error } = await authApi.getCurrentUser();
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
+    if (error || !data?.user) {
+      setUser(null);
+    } else {
+      setUser(data.user);
+    }
+    setLoading(false);
   }, []);
 
+  useEffect(() => {
+    checkSession();
+  }, [checkSession]);
+
+  // 2. SignUp Handler
   const signUp = async (email, password, name) => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { data: { name } },
-    });
-    if (error) return { error: error.message };
-    return { error: null };
+    const { data, error } = await authApi.signUp(email, password, name);
+    if (error) return { error };
+
+    // If your backend automatically logs the user in on signup:
+    if (data?.user) {
+      setUser(data.user);
+    }
+    return { error: null, data };
   };
 
+  // 3. SignIn Handler
   const signIn = async (email, password) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) return { error: error.message };
-    return { error: null };
+    const { data, error } = await authApi.signIn(email, password);
+    if (error) return { error };
+
+    if (data?.user) {
+      setUser(data.user);
+    }
+    return { error: null, data };
   };
 
+  // 4. SignOut Handler
   const signOut = async () => {
-    await supabase.auth.signOut();
+    // Clear state immediately for responsive UX, then invalidate session on server
+    setUser(null);
+    await authApi.signOut();
   };
 
   return (
     <AuthContext.Provider
-      value={{ user, session, loading, signUp, signIn, signOut }}
+      value={{
+        user,
+        // session prop kept for backward compatibility if components check session
+        session: user ? { user } : null,
+        loading,
+        signUp,
+        signIn,
+        signOut,
+        refreshSession: checkSession, // Bonus: allows manual session re-verification
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   FileText,
@@ -53,17 +53,17 @@ const sections = [
 
 function computeScore(resume) {
   let score = 0;
-  const p = resume.personal_info;
+  const p = resume.personal_info || {};
   if (p.name) score += 10;
   if (p.email) score += 10;
   if (p.phone) score += 5;
   if (p.location) score += 5;
   if (resume.summary && resume.summary.length > 50) score += 15;
-  if (resume.experience.length > 0) score += 20;
-  if (resume.education.length > 0) score += 10;
-  if (resume.skills.length >= 5) score += 10;
-  if (resume.skills.length >= 10) score += 5;
-  if (resume.projects.length > 0) score += 5;
+  if (resume.experience?.length > 0) score += 20;
+  if (resume.education?.length > 0) score += 10;
+  if (resume.skills?.length >= 5) score += 10;
+  if (resume.skills?.length >= 10) score += 5;
+  if (resume.projects?.length > 0) score += 5;
   if (p.linkedin) score += 5;
   return Math.min(score, 100);
 }
@@ -76,11 +76,14 @@ export function EditorPage() {
   const [saveStatus, setSaveStatus] = useState("saved");
   const [previewZoom, setPreviewZoom] = useState(100);
 
+  // Prevent race conditions during auto-save network requests
+  const isSavingRef = useRef(false);
+
   useEffect(() => {
     if (resume && !localResume) {
       setLocalResume(resume);
     }
-  }, [resume]);
+  }, [resume, localResume]);
 
   const handleChange = useCallback((updates) => {
     setLocalResume((prev) => (prev ? { ...prev, ...updates } : prev));
@@ -88,9 +91,11 @@ export function EditorPage() {
   }, []);
 
   const handleSave = useCallback(async () => {
-    if (!localResume) return;
+    if (!localResume || isSavingRef.current) return;
+    isSavingRef.current = true;
     setSaveStatus("saving");
-    await updateResume({
+
+    const { error } = await updateResume({
       personal_info: localResume.personal_info,
       summary: localResume.summary,
       experience: localResume.experience,
@@ -99,12 +104,16 @@ export function EditorPage() {
       projects: localResume.projects,
       template: localResume.template,
     });
-    setSaveStatus("saved");
+
+    isSavingRef.current = false;
+    setSaveStatus(error ? "unsaved" : "saved");
   }, [localResume, updateResume]);
 
   useEffect(() => {
     if (saveStatus !== "unsaved") return;
-    const timer = setTimeout(handleSave, 2000);
+    const timer = setTimeout(() => {
+      handleSave();
+    }, 2000);
     return () => clearTimeout(timer);
   }, [saveStatus, handleSave]);
 
@@ -126,45 +135,47 @@ export function EditorPage() {
       case "personal":
         return (
           <PersonalInfoSection
-            data={localResume.personal_info}
+            data={localResume.personal_info || {}}
             onChange={(v) => handleChange({ personal_info: v })}
           />
         );
       case "experience":
         return (
           <ExperienceSection
-            data={localResume.experience}
+            data={localResume.experience || []}
             onChange={(v) => handleChange({ experience: v })}
           />
         );
       case "education":
         return (
           <EducationSection
-            data={localResume.education}
+            data={localResume.education || []}
             onChange={(v) => handleChange({ education: v })}
           />
         );
       case "skills":
         return (
           <SkillsSection
-            data={localResume.skills}
+            data={localResume.skills || []}
             onChange={(v) => handleChange({ skills: v })}
           />
         );
       case "projects":
         return (
           <ProjectsSection
-            data={localResume.projects}
+            data={localResume.projects || []}
             onChange={(v) => handleChange({ projects: v })}
           />
         );
       case "summary":
         return (
           <SummarySection
-            data={localResume.summary}
+            data={localResume.summary || ""}
             onChange={(v) => handleChange({ summary: v })}
           />
         );
+      default:
+        return null;
     }
   };
 
@@ -258,9 +269,13 @@ export function EditorPage() {
                 {section.icon}
                 {section.label}
                 {section.id === "personal" &&
-                  localResume.personal_info.name && (
+                  localResume.personal_info?.name && (
                     <CheckCircle
-                      className={`w-3.5 h-3.5 ml-auto ${activeSection === section.id ? "text-blue-200" : "text-green-500"}`}
+                      className={`w-3.5 h-3.5 ml-auto ${
+                        activeSection === section.id
+                          ? "text-blue-200"
+                          : "text-green-500"
+                      }`}
                     />
                   )}
               </button>
@@ -390,25 +405,39 @@ export function EditorPage() {
                   }`}
                 >
                   <div
-                    className={`w-full h-14 rounded-lg overflow-hidden ${t === "modern" ? "bg-white" : "bg-gray-800"} border border-gray-200 flex flex-col gap-1 p-1.5`}
+                    className={`w-full h-14 rounded-lg overflow-hidden ${
+                      t === "modern" ? "bg-white" : "bg-gray-800"
+                    } border border-gray-200 flex flex-col gap-1 p-1.5`}
                   >
                     <div
-                      className={`h-2 w-3/4 rounded ${t === "modern" ? "bg-gray-800" : "bg-white"}`}
+                      className={`h-2 w-3/4 rounded ${
+                        t === "modern" ? "bg-gray-800" : "bg-white"
+                      }`}
                     />
                     <div
-                      className={`h-1.5 w-1/2 rounded ${t === "modern" ? "bg-blue-300" : "bg-gray-400"}`}
+                      className={`h-1.5 w-1/2 rounded ${
+                        t === "modern" ? "bg-blue-300" : "bg-gray-400"
+                      }`}
                     />
                     <div className="mt-1 space-y-0.5">
                       <div
-                        className={`h-1 w-full rounded ${t === "modern" ? "bg-gray-200" : "bg-gray-600"}`}
+                        className={`h-1 w-full rounded ${
+                          t === "modern" ? "bg-gray-200" : "bg-gray-600"
+                        }`}
                       />
                       <div
-                        className={`h-1 w-4/5 rounded ${t === "modern" ? "bg-gray-200" : "bg-gray-600"}`}
+                        className={`h-1 w-4/5 rounded ${
+                          t === "modern" ? "bg-gray-200" : "bg-gray-600"
+                        }`}
                       />
                     </div>
                   </div>
                   <span
-                    className={`text-xs font-medium capitalize ${localResume.template === t ? "text-blue-600" : "text-gray-500"}`}
+                    className={`text-xs font-medium capitalize ${
+                      localResume.template === t
+                        ? "text-blue-600"
+                        : "text-gray-500"
+                    }`}
                   >
                     {t}
                   </span>

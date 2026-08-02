@@ -7,8 +7,8 @@ import {
   Info,
   ChevronRight,
 } from "lucide-react";
-import { supabase } from "../lib/supabase";
 import { useAuth } from "../contexts/AuthContext";
+import { resumeApi } from "../lib/api";
 import { Button } from "../components/ui/Button";
 
 const EXAMPLE_PLACEHOLDER = `My name is Alex Morgan. I am a Senior Product Designer with 5 years of experience.
@@ -28,7 +28,7 @@ Achievements: Best UI Design 2021, Awwwards Ribbon.`;
 export function CreateResumePage() {
   const [title, setTitle] = useState("");
   const [rawInput, setRawInput] = useState("");
-  const [step, setStep] = (useState < "input") | ("generating" > "input");
+  const [step, setStep] = useState("input"); // Fixed syntax typo from original code
   const [error, setError] = useState("");
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -43,71 +43,26 @@ export function CreateResumePage() {
       return;
     }
 
+    if (!user) {
+      setError("Session expired. Please log in again.");
+      return;
+    }
+
     setError("");
     setStep("generating");
 
     try {
-      // const supabaseUrl = "https://avvrfvdtrkzcaihcppks.supabase.co";
-      // const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-
-      // const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (!session) {
-        setError("Session expired. Please log in again.");
-        setStep("input");
-        return;
-      }
-
-      const response = await fetch(
-        "https://ai-resume-builder-1r1c.onrender.com/parse-resume",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ rawInput }),
-        },
+      // Calls your custom backend API (which handles AI parsing + Google Sheets saving)
+      const { data, error: apiError } = await resumeApi.generateWithAI(
+        title.trim(),
+        rawInput,
       );
 
-      const result = await response.json();
-
-      if (!response.ok || result.error) {
-        throw new Error(result.error || "AI generation failed");
+      if (apiError || !data?.resume) {
+        throw new Error(apiError || "AI generation failed");
       }
 
-      const aiData = result.data;
-
-      const { data: resume, error: dbError } = await supabase
-        .from("resumes")
-        .insert({
-          user_id: user?.id,
-          title: title.trim(),
-          raw_input: rawInput,
-          personal_info: aiData.personal_info || {
-            name: "",
-            email: "",
-            phone: "",
-            location: "",
-            linkedin: "",
-            website: "",
-          },
-          summary: aiData.summary || "",
-          experience: aiData.experience || [],
-          education: aiData.education || [],
-          skills: aiData.skills || [],
-          projects: aiData.projects || [],
-          template: "modern",
-          ai_generated: true,
-        })
-        .select()
-        .maybeSingle();
-
-      if (dbError) throw new Error(dbError.message);
-
-      navigate(`/editor/${resume?.id}`);
+      navigate(`/editor/${data.resume.id}`);
     } catch (err) {
       setError(
         err instanceof Error
@@ -123,38 +78,25 @@ export function CreateResumePage() {
       setError("Please enter a resume title.");
       return;
     }
-    setError("");
-
-    const { data: resume, error: dbError } = await supabase
-      .from("resumes")
-      .insert({
-        user_id: user?.id,
-        title: title.trim(),
-        raw_input: rawInput,
-        personal_info: {
-          name: "",
-          email: "",
-          phone: "",
-          location: "",
-          linkedin: "",
-          website: "",
-        },
-        summary: "",
-        experience: [],
-        education: [],
-        skills: [],
-        projects: [],
-        template: "modern",
-        ai_generated: false,
-      })
-      .select()
-      .maybeSingle();
-
-    if (dbError) {
-      setError(dbError.message);
+    if (!user) {
+      setError("Session expired. Please log in again.");
       return;
     }
-    navigate(`/editor/${resume?.id}`);
+
+    setError("");
+
+    // Creates an empty manual resume via your backend API
+    const { data, error: apiError } = await resumeApi.createManual(
+      title.trim(),
+      rawInput,
+    );
+
+    if (apiError || !data?.resume) {
+      setError(apiError || "Failed to create resume.");
+      return;
+    }
+
+    navigate(`/editor/${data.resume.id}`);
   };
 
   return (

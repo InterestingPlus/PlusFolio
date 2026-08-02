@@ -1,36 +1,34 @@
-import { useState, useEffect } from "react";
-import { supabase } from "../lib/supabase";
+// src/hooks/useResumes.js
+import { useState, useEffect, useCallback } from "react";
+import { resumeApi } from "../lib/api";
 
 export function useResumes() {
   const [resumes, setResumes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchResumes = async () => {
+  const fetchResumes = useCallback(async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("resumes")
-      .select("id, title, updated_at, ai_generated, personal_info")
-      .order("updated_at", { ascending: false });
+    const { data, error: apiError } = await resumeApi.getAll();
 
-    if (error) {
-      setError(error.message);
+    if (apiError) {
+      setError(apiError);
     } else {
-      setResumes(data || []);
+      setResumes(data?.resumes || []);
     }
     setLoading(false);
-  };
+  }, []);
 
   useEffect(() => {
     fetchResumes();
-  }, []);
+  }, [fetchResumes]);
 
   const deleteResume = async (id) => {
-    const { error } = await supabase.from("resumes").delete().eq("id", id);
-    if (!error) {
+    const { error: apiError } = await resumeApi.delete(id);
+    if (!apiError) {
       setResumes((prev) => prev.filter((r) => r.id !== id));
     }
-    return { error: error?.message || null };
+    return { error: apiError || null };
   };
 
   return { resumes, loading, error, refetch: fetchResumes, deleteResume };
@@ -41,38 +39,35 @@ export function useResume(id) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchResume = async () => {
+  const fetchResume = useCallback(async () => {
     if (!id) {
       setLoading(false);
       return;
     }
     setLoading(true);
-    const { data, error } = await supabase
-      .from("resumes")
-      .select("*")
-      .eq("id", id)
-      .maybeSingle();
+    const { data, error: apiError } = await resumeApi.getById(id);
 
-    if (error) setError(error.message);
-    else setResume(data);
+    if (apiError) {
+      setError(apiError);
+    } else {
+      setResume(data?.resume || null);
+    }
     setLoading(false);
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchResume();
-  }, [id]);
+  }, [fetchResume]);
 
   const updateResume = async (updates) => {
-    if (!id) return { error: "No resume ID" };
-    const { data, error } = await supabase
-      .from("resumes")
-      .update(updates)
-      .eq("id", id)
-      .select()
-      .maybeSingle();
+    if (!id) return { error: "No resume ID provided" };
 
-    if (!error && data) setResume(data);
-    return { error: error?.message || null };
+    const { data, error: apiError } = await resumeApi.update(id, updates);
+
+    if (!apiError && data?.resume) {
+      setResume(data.resume);
+    }
+    return { error: apiError || null };
   };
 
   return { resume, loading, error, updateResume, refetch: fetchResume };
