@@ -18,18 +18,22 @@ const sanitizeUser = (user) => {
 const setAuthCookie = (res, user) => {
   const token = jwt.sign(
     { id: user.id, email: user.email },
-    process.env.JWT_SECRET || "your-fallback-jwt-secret-key-32chars",
-    { expiresIn: "7d" },
+    process.env.JWT_SECRET,
+    { expiresIn: "30d" }, // 30 days taaki baar-baar expire na ho
   );
+
+  const isProduction = process.env.NODE_ENV === "production";
 
   res.cookie("token", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production", // require HTTPS in production
-    sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+    // Cross-domain (e.g., Vercel frontend -> Render backend) ke liye:
+    // Production me secure: true aur sameSite: "none" HONA HI CHAHIYE
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 Days in milliseconds
+    path: "/", // Ensure cookie is sent to all API routes
   });
 };
-
 /**
  * @desc   Register a new user
  * @route  POST /api/auth/signup
