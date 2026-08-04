@@ -3,7 +3,8 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { GoogleSheetService } from "../utils/GoogleSheets.js";
-import { SheetsConfig } from "../config/sheets.js";
+import { SheetsConfig } from "../models/sheets.js";
+import { google } from "googleapis";
 
 const sheetService = new GoogleSheetService();
 
@@ -67,9 +68,12 @@ export const signUp = async (req, res) => {
     // 3. Prepare row values in the EXACT order of SheetsConfig.users.columns
     const newUserObj = {
       id: crypto.randomUUID(),
+      username: email.split("@")[0],
       email: email.toLowerCase(),
       password: hashedPassword,
       name: name,
+      googleId: "", // Empty for manual sign-up
+      avatar: "", // Empty for manual sign-up
       created_at: new Date().toISOString(),
     };
 
@@ -160,6 +164,36 @@ export const getCurrentUser = async (req, res) => {
   } catch (error) {
     console.error("GetCurrentUser Error:", error);
     return res.status(500).json({ message: "Failed to fetch user session." });
+  }
+};
+
+/**
+ * @desc   Handle Google OAuth callback & issue JWT Cookie
+ * @route  GET /api/auth/google/callback
+ */
+export const googleAuthCallback = async (req, res) => {
+  try {
+    const user = req.user; // Attached by Passport via OAuth
+
+    if (!user) {
+      return res.redirect(
+        `${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=GoogleAuthFailed`,
+      );
+    }
+
+    // 1. Sanitize & set JWT Cookie (uses your existing setAuthCookie helper!)
+    const safeUser = sanitizeUser(user);
+    setAuthCookie(res, safeUser);
+
+    // 2. Redirect back to frontend dashboard
+    return res.redirect(
+      `${process.env.CLIENT_URL || "http://localhost:5173"}/dashboard`,
+    );
+  } catch (error) {
+    console.error("Google Callback Controller Error:", error);
+    return res.redirect(
+      `${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=OAuthError`,
+    );
   }
 };
 

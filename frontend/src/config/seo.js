@@ -129,6 +129,7 @@ export const seo = {
     description:
       "Browse professional resume examples for students, freshers and experienced professionals.",
     canonical: `${BASE_URL}/resume-examples`,
+    type: "article",
   },
 
   resumeTemplates: {
@@ -136,6 +137,7 @@ export const seo = {
     description:
       "Download and customize modern, ATS-friendly resume templates for every profession.",
     canonical: `${BASE_URL}/resume-templates`,
+    type: "article",
   },
 
   resumeSamples: {
@@ -143,6 +145,7 @@ export const seo = {
     description:
       "Explore ready-to-use resume samples and learn how to create impressive resumes.",
     canonical: `${BASE_URL}/resume-samples`,
+    type: "article",
   },
 
   biodataSamples: {
@@ -150,6 +153,7 @@ export const seo = {
     description:
       "View beautifully designed marriage biodata samples and templates for free.",
     canonical: `${BASE_URL}/biodata-samples`,
+    type: "article",
   },
 
   resumeFormat: {
@@ -157,6 +161,7 @@ export const seo = {
     description:
       "Learn which resume format is best for freshers, experienced professionals and job seekers.",
     canonical: `${BASE_URL}/resume-format`,
+    type: "article",
   },
 
   resumeTips: {
@@ -164,6 +169,7 @@ export const seo = {
     description:
       "Discover practical resume writing tips to improve your resume and increase interview opportunities.",
     canonical: `${BASE_URL}/resume-tips`,
+    type: "article",
   },
 
   interviewTips: {
@@ -171,6 +177,7 @@ export const seo = {
     description:
       "Prepare confidently with interview tips, common questions and expert career advice.",
     canonical: `${BASE_URL}/interview-tips`,
+    type: "article",
   },
 
   careerBlog: {
@@ -178,5 +185,6 @@ export const seo = {
     description:
       "Read expert articles on careers, resumes, interviews, AI tools, productivity and professional growth.",
     canonical: `${BASE_URL}/career-blog`,
+    type: "article",
   },
 };

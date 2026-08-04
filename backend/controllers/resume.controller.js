@@ -1,7 +1,7 @@
 // controllers/resume.controller.js
 import crypto from "crypto";
 import { GoogleSheetService } from "../utils/GoogleSheets.js";
-import { SheetsConfig } from "../config/sheets.js";
+import { SheetsConfig } from "../models/sheets.js";
 import { GetAIParsedResume } from "../services/ai.service.js";
 
 const sheetService = new GoogleSheetService();

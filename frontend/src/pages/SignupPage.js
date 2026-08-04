@@ -5,6 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { Button } from "../components/ui/Button";
 import SEO from "../components/SEO";
 import { seo } from "../config/seo";
+import GoogleButton from "../components/ui/GoogleButton";
 
 export function SignupPage() {
   const [name, setName] = useState("");
@@ -12,7 +13,7 @@ export function SignupPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { signUp } = useAuth();
+  const { signUp, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -90,8 +91,7 @@ export function SignupPage() {
         <div className="flex-1 flex items-center justify-center bg-white p-8">
           <div className="w-full max-w-md">
             <div
-              className="flex items-center gap-3 mb-8"
-              style={{ cursor: "pointer" }}
+              className="flex items-center gap-3 mb-8 cursor-pointer"
               onClick={() => navigate("/")}
             >
               <div className="w-11 h-11 bg-blue-600 rounded-xl flex items-center justify-center">
@@ -105,9 +105,20 @@ export function SignupPage() {
             <h1 className="text-3xl font-bold text-gray-900 mb-1">
               Get started free
             </h1>
-            <p className="text-gray-400 text-sm mb-8">
+            <p className="text-gray-400 text-sm mb-6">
               No credit card required.
             </p>
+
+            {/* 2. Google OAuth Button */}
+            <GoogleButton />
+
+            {/* 3. Sleek Divider */}
+            <div className="relative flex items-center justify-center mb-6">
+              <div className="border-t border-gray-200 w-full" />
+              <span className="bg-white px-3 text-xs font-medium text-gray-400 absolute uppercase tracking-wider">
+                or continue with email
+              </span>
+            </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && (
@@ -182,7 +193,7 @@ export function SignupPage() {
             </p>
           </div>
         </div>
-      </div>{" "}
+      </div>
     </>
   );
 }

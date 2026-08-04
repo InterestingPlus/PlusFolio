@@ -60,6 +60,11 @@ export function AuthProvider({ children }) {
     await authApi.signOut();
   };
 
+  // 5. Google OAuth Handler
+  const signInWithGoogle = () => {
+    authApi.signInWithGoogle();
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -70,6 +75,7 @@ export function AuthProvider({ children }) {
         signUp,
         signIn,
         signOut,
+        signInWithGoogle,
         refreshSession: checkSession, // Bonus: allows manual session re-verification
       }}
     >

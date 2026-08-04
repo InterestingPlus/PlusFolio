@@ -5,6 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { Button } from "../components/ui/Button";
 import SEO from "../components/SEO";
 import { seo } from "../config/seo";
+import GoogleButton from "../components/ui/GoogleButton";
 
 export function LoginPage() {
   const [email, setEmail] = useState("");
@@ -12,7 +13,7 @@ export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { signIn } = useAuth();
+  const { signIn, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -101,6 +102,17 @@ export function LoginPage() {
             <p className="text-gray-500 mb-8">
               Please enter your details to sign in.
             </p>
+
+            {/* 2. Google OAuth Button */}
+            <GoogleButton />
+
+            {/* 3. Sleek Divider */}
+            <div className="relative flex items-center justify-center mb-6">
+              <div className="border-t border-gray-200 w-full" />
+              <span className="bg-white px-3 text-xs font-medium text-gray-400 absolute uppercase tracking-wider">
+                or continue with email
+              </span>
+            </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && (

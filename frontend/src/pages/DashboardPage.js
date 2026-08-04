@@ -57,11 +57,23 @@ export function DashboardPage() {
           </Link>
 
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600">
-              <div className="w-7 h-7 bg-blue-100 rounded-full flex items-center justify-center">
-                <User className="w-3.5 h-3.5 text-blue-600" />
+            <div className="hidden sm:flex items-center gap-2.5 text-sm font-medium text-gray-700">
+              <div className="w-8 h-8 rounded-full bg-blue-100 border border-blue-200 flex items-center justify-center overflow-hidden shadow-sm flex-shrink-0">
+                {user?.avatar ? (
+                  <img
+                    src={user.avatar}
+                    alt={userName || "User"}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // Agar Google image link load nahi hota hai, toh icon fallback dikhao
+                      e.target.style.display = "none";
+                    }}
+                  />
+                ) : (
+                  <User className="w-4 h-4 text-blue-600" />
+                )}
               </div>
-              <span>{userName}</span>
+              <span className="truncate max-w-[140px]">{userName}</span>
             </div>
             <Button variant="outline" size="sm" onClick={handleSignOut}>
               <LogOut className="w-3.5 h-3.5" />

@@ -1,7 +1,16 @@
 export const SheetsConfig = {
   users: {
     sheetName: "users",
-    columns: ["id", "email", "password", "name", "created_at"],
+    columns: [
+      "id",
+      "username",
+      "email",
+      "password",
+      "name",
+      "googleId",
+      "avatar",
+      "created_at",
+    ],
   },
 
   resumes: {

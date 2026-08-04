@@ -1,5 +1,5 @@
 import { google } from "googleapis";
-import { SheetsConfig } from "../config/sheets.js";
+import { SheetsConfig } from "../models/sheets.js";
 import dotenv from "dotenv";
 
 dotenv.config();

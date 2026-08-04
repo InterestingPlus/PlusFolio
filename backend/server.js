@@ -6,11 +6,14 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
 import resumeRoutes from "./routes/resume.routes.js";
 import job from "./config/cron.js";
+import passport from "./config/passport.js";
 
 dotenv.config();
 
 const app = express();
 job.start();
+
+app.use(passport.initialize());
 
 // CRITICAL PRODUCTION CORS SETTINGS FOR COOKIES
 app.use(
@@ -22,29 +25,6 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
-
-// async function listAvailableModels() {
-//   const url = `https://generativelanguage.googleapis.com/v1beta/models?key=${process.env.GEMINI_API_KEY}`;
-
-//   try {
-//     const response = await fetch(url);
-//     const data = await response.json();
-
-//     console.log("=== Supported Models for generateContent ===");
-//     const validModels = (data.models || []).filter((m) =>
-//       m.supportedGenerationMethods?.includes("generateContent"),
-//     );
-
-//     validModels.forEach((m) => {
-//       // Strips "models/" prefix so you see the exact string to use
-//       console.log("->", m.name.replace("models/", ""));
-//     });
-//   } catch (err) {
-//     console.error("Failed to fetch models:", err.message);
-//   }
-// }
-
-// listAvailableModels();
 
 // Auth routes
 app.use("/api/auth", authRoutes);

@@ -1,5 +1,5 @@
 // src/lib/api.js
-// const BASE_URL =    "http://localhost:5000/api";
+// const BASE_URL = "http://localhost:5000/api";
 const BASE_URL = "https://plusfolio.onrender.com/api";
 
 async function request(endpoint, { method = "GET", body, headers = {} } = {}) {
@@ -55,6 +55,9 @@ export const authApi = {
     request("/auth/signout", {
       method: "POST",
     }),
+  signInWithGoogle: () => {
+    window.location.href = `${BASE_URL}/auth/google`;
+  },
 };
 
 export const resumeApi = {
