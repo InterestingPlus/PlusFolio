@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { FileText, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "../components/ui/Button";
@@ -13,8 +13,32 @@ export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { signIn, signInWithGoogle } = useAuth();
+
+  const { signIn } = useAuth();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Handle OAuth Redirect Errors from URL Query Parameters
+  useEffect(() => {
+    const queryError = searchParams.get("error");
+    if (queryError) {
+      const errorMap = {
+        LinkedInAuthFailed:
+          "LinkedIn authentication failed. Please try again or use another method.",
+        GoogleAuthFailed:
+          "Google authentication failed. Please try again or use another method.",
+        OAuthError: "An unexpected OAuth error occurred. Please try again.",
+        default:
+          "Authentication failed. Please check your credentials and try again.",
+      };
+
+      setError(errorMap[queryError] || errorMap.default);
+
+      // Clean the URL so the error doesn't persist on page refresh
+      searchParams.delete("error");
+      setSearchParams(searchParams, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -103,10 +127,10 @@ export function LoginPage() {
               Please enter your details to sign in.
             </p>
 
-            {/* 2. Google OAuth Button */}
+            {/* Google / LinkedIn OAuth Button Component */}
             <SocialProviderButton />
 
-            {/* 3. Sleek Divider */}
+            {/* Sleek Divider */}
             <div className="relative flex items-center justify-center mb-6">
               <div className="border-t border-gray-200 w-full" />
               <span className="bg-white px-3 text-xs font-medium text-gray-400 absolute uppercase tracking-wider">

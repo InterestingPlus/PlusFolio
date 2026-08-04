@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth.routes.js";
 import resumeRoutes from "./routes/resume.routes.js";
 import job from "./config/cron.js";
 import passport from "./config/passport.js";
+import { listAvailableGeminiModels } from "../frontend/src/config/showModels.js";
 
 dotenv.config();
 
@@ -34,6 +35,8 @@ app.get("/", (_req, res) => {
 app.use("/api/auth", authRoutes);
 // Resume routes
 app.use("/api/resumes", resumeRoutes);
+
+await listAvailableGeminiModels();
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

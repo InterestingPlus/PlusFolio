@@ -100,6 +100,77 @@ const RESUME_RESPONSE_SCHEMA = {
   ],
 };
 
+// const MODEL_CHAIN = [
+//   "gemini-2.5-flash",
+//   "gemini-2.5-pro",
+//   "gemini-2.0-flash",
+//   "gemini-2.0-flash-001",
+//   "gemini-2.0-flash-lite-001",
+//   "gemini-2.0-flash-lite",
+//   "gemini-2.5-flash-preview-tts",
+//   "gemini-2.5-pro-preview-tts",
+//   "gemma-4-26b-a4b-it",
+//   "gemma-4-31b-it",
+//   "gemini-flash-latest",
+//   "gemini-flash-lite-latest",
+//   "gemini-pro-latest",
+//   "gemini-2.5-flash-lite",
+//   "gemini-2.5-flash-image",
+//   "gemini-3-pro-preview",
+//   "gemini-3-flash-preview",
+//   "gemini-3.1-pro-preview",
+//   "gemini-3.1-pro-preview-customtools",
+//   "gemini-3.1-flash-lite-preview",
+//   "gemini-3.1-flash-lite",
+//   "gemini-3-pro-image-preview",
+//   "gemini-3-pro-image",
+//   "nano-banana-pro-preview",
+//   "gemini-3.1-flash-image-preview",
+//   "gemini-3.1-flash-image",
+//   "gemini-3.1-flash-lite-image",
+//   "gemini-3.5-flash",
+//   "gemini-3.5-flash-lite",
+//   "gemini-omni-flash-preview",
+//   "gemini-3.6-flash",
+//   "lyria-3-clip-preview",
+//   "lyria-3-pro-preview",
+//   "gemini-3.1-flash-tts-preview",
+//   "gemini-robotics-er-1.5-preview",
+//   "gemini-robotics-er-1.6-preview",
+//   "gemini-robotics-er-2-preview",
+//   "gemini-2.5-computer-use-preview-10-2025",
+//   "antigravity-preview-05-2026",
+//   "deep-research-max-preview-04-2026",
+//   "deep-research-preview-04-2026",
+//   "deep-research-pro-preview-12-2025",
+// ];
+
+const MODEL_CHAIN = [
+  "gemini-2.5-pro",
+  "gemini-2.5-flash",
+  "gemini-2.5-flash-lite",
+  "gemini-2.0-flash",
+  "gemini-2.0-flash-001",
+  "gemini-2.0-flash-lite",
+  "gemini-2.0-flash-lite-001",
+
+  "gemini-flash-latest",
+
+  "gemini-3.5-flash",
+  "gemini-3.5-flash-lite",
+
+  "gemini-3.6-flash",
+
+  "gemini-3-pro-preview",
+  "gemini-3.1-pro-preview",
+
+  "gemini-3-flash-preview",
+  "gemini-3.1-flash-lite",
+  "gemini-3.1-flash-lite-preview",
+];
+
+// im the full stack developer with 0 years of production experience, means im fresher! but i have build 1-2 projects like: library management system using php and mysql, and second is a reciepe app with react native and mealdb api! and i have completed my bca with mkbu university! this year.
+
 // Helper: sleep function for brief retry delays
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -121,12 +192,7 @@ Rules:
 Input paragraph:
 "${rawInput}"`;
 
-    // Production Fallback Chain: Try primary model first; if rate-limited (429), fall back to lighter models
-    const MODEL_CHAIN = [
-      "gemini-2.0-flash",
-      "gemini-flash-lite-latest",
-      "gemini-2.5-flash-lite",
-    ];
+    // Production Fallback Chain: Valid, active Gemini model identifiers
 
     let lastError = null;
 
@@ -150,15 +216,28 @@ Input paragraph:
           }),
         });
 
-        // If rate limited (429) or model busy (503), log warning and try next model in chain
+        // 1. Handle Rate Limit (429) & Busy (503) -> Pause then skip
         if (response.status === 429 || response.status === 503) {
           console.warn(
             `[AI Warning] Model ${modelName} returned ${response.status}. Switching to fallback...`,
           );
-          await sleep(2000); // 2-second pause before trying fallback
+          await sleep(2000); // 2-second pause before trying next fallback
           continue;
         }
 
+        // 2. Handle Deprecated / Not Found (404 / 400) -> Skip immediately
+        if (response.status === 404 || response.status === 400) {
+          const errorText = await response.text();
+          console.warn(
+            `[AI Warning] Model ${modelName} unavailable (${response.status}): Skipping to next model...`,
+          );
+          lastError = new Error(
+            `Model ${modelName} (${response.status}): ${errorText}`,
+          );
+          continue;
+        }
+
+        // 3. For any other unhandled HTTP errors, throw to outer catch
         if (!response.ok) {
           const errorText = await response.text();
           throw new Error(
