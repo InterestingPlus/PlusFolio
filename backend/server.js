@@ -26,6 +26,10 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+app.get("/", (_req, res) => {
+  res.send("Welcome to the PlusFolio API!");
+});
+
 // Auth routes
 app.use("/api/auth", authRoutes);
 // Resume routes

@@ -5,7 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { Button } from "../components/ui/Button";
 import SEO from "../components/SEO";
 import { seo } from "../config/seo";
-import GoogleButton from "../components/ui/GoogleButton";
+import SocialProviderButton from "../components/ui/SocialButton";
 
 export function SignupPage() {
   const [name, setName] = useState("");
@@ -110,7 +110,7 @@ export function SignupPage() {
             </p>
 
             {/* 2. Google OAuth Button */}
-            <GoogleButton />
+            <SocialProviderButton />
 
             {/* 3. Sleek Divider */}
             <div className="relative flex items-center justify-center mb-6">

@@ -58,6 +58,9 @@ export const authApi = {
   signInWithGoogle: () => {
     window.location.href = `${BASE_URL}/auth/google`;
   },
+  signInWithLinkedIn: () => {
+    window.location.href = `${BASE_URL}/auth/linkedin`;
+  },
 };
 
 export const resumeApi = {

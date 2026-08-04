@@ -8,6 +8,7 @@ export const SheetsConfig = {
       "password",
       "name",
       "googleId",
+      "linkedinId",
       "avatar",
       "created_at",
     ],

@@ -7,6 +7,7 @@ import {
   getCurrentUser,
   signOut,
   googleAuthCallback,
+  linkedinAuthCallback,
 } from "../controllers/auth.controller.js";
 import { requireAuth } from "../middleware/auth.middleware.js";
 
@@ -35,6 +36,26 @@ router.get(
     failureRedirect: `${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=GoogleAuthFailed`,
   }),
   googleAuthCallback,
+);
+
+// ------------------- LINKEDIN OAUTH ROUTES -------------------
+// 1. Trigger LinkedIn login prompt
+router.get(
+  "/linkedin",
+  passport.authenticate("linkedin", {
+    scope: ["openid", "profile", "email"],
+    session: false, // CRITICAL: Disable Express sessions
+  }),
+);
+
+// 2. Callback url from LinkedIn
+router.get(
+  "/linkedin/callback",
+  passport.authenticate("linkedin", {
+    session: false,
+    failureRedirect: `${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=LinkedInAuthFailed`,
+  }),
+  linkedinAuthCallback,
 );
 
 export default router;

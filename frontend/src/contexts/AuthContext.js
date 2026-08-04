@@ -65,6 +65,11 @@ export function AuthProvider({ children }) {
     authApi.signInWithGoogle();
   };
 
+  // 6. LinkedIn OAuth Handler
+  const signInWithLinkedIn = () => {
+    authApi.signInWithLinkedIn();
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -76,6 +81,7 @@ export function AuthProvider({ children }) {
         signIn,
         signOut,
         signInWithGoogle,
+        signInWithLinkedIn,
         refreshSession: checkSession, // Bonus: allows manual session re-verification
       }}
     >

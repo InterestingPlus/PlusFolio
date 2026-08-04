@@ -198,6 +198,36 @@ export const googleAuthCallback = async (req, res) => {
 };
 
 /**
+ * @desc   Handle LinkedIn OAuth callback & issue JWT Cookie
+ * @route  GET /api/auth/linkedin/callback
+ */
+export const linkedinAuthCallback = async (req, res) => {
+  try {
+    const user = req.user; // Attached by Passport via OAuth
+
+    if (!user) {
+      return res.redirect(
+        `${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=LinkedInAuthFailed`,
+      );
+    }
+
+    // 1. Sanitize & set JWT Cookie via same helper
+    const safeUser = sanitizeUser(user);
+    setAuthCookie(res, safeUser);
+
+    // 2. Redirect back to frontend dashboard
+    return res.redirect(
+      `${process.env.CLIENT_URL || "http://localhost:5173"}/dashboard`,
+    );
+  } catch (error) {
+    console.error("LinkedIn Callback Controller Error:", error);
+    return res.redirect(
+      `${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=OAuthError`,
+    );
+  }
+};
+
+/**
  * @desc   Sign out user by clearing cookie
  * @route  POST /api/auth/signout
  */
