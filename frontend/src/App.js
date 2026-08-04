@@ -39,6 +39,31 @@ function PublicOnlyRoute({ children }) {
   return <>{children}</>;
 }
 
+// Recommended for Google Adsense
+// - About Us
+// - Privacy Policy
+// - Terms & Conditions
+// - Contact Us
+// - Blogs
+// - FAQ
+// - Pricing (Premium)
+// - Resume Templates
+// - Resume Samples
+// - Biodata Samples
+
+// Future SEO Pages - Traffic
+// - Resume Builder
+// - Biodata Maker
+// - ATS Checker
+// - Cover Letter Generator
+// - Portfolio Builder
+// - Resume Examples
+// - Resume Templates
+// - Resume Format
+// - Resume Tips
+// - Interview Tips
+// - Career Blog
+
 function AppRoutes() {
   return (
     <Routes>
