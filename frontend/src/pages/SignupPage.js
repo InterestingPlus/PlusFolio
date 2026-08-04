@@ -4,6 +4,7 @@ import { FileText, CheckCircle } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "../components/ui/Button";
 import SEO from "../components/SEO";
+import { seo } from "../config/seo";
 
 export function SignupPage() {
   const [name, setName] = useState("");
@@ -33,12 +34,7 @@ export function SignupPage() {
 
   return (
     <>
-      <SEO
-        title="Create Account | PlusFolio"
-        description="Create your free PlusFolio account to securely save and manage your resumes and career documents."
-        canonical="https://plusfolio.netlify.app/signup"
-        robots="noindex,nofollow"
-      />
+      <SEO {...seo.signup} />
       <div className="min-h-screen flex">
         {/* Left Panel */}
         <div className="hidden lg:flex lg:w-1/2 bg-slate-100 flex-col justify-center items-center p-12 relative overflow-hidden">

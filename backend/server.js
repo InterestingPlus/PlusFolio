@@ -5,10 +5,12 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
 import resumeRoutes from "./routes/resume.routes.js";
+import job from "./config/cron.js";
 
 dotenv.config();
 
 const app = express();
+job.start();
 
 // CRITICAL PRODUCTION CORS SETTINGS FOR COOKIES
 app.use(

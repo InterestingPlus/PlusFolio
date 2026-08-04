@@ -4,6 +4,7 @@ import { FileText, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "../components/ui/Button";
 import SEO from "../components/SEO";
+import { seo } from "../config/seo";
 
 export function LoginPage() {
   const [email, setEmail] = useState("");
@@ -29,12 +30,7 @@ export function LoginPage() {
 
   return (
     <>
-      <SEO
-        title="Login | PlusFolio"
-        description="Login to your PlusFolio account to access your saved resumes and career tools."
-        canonical="https://plusfolio.netlify.app/login"
-        robots="noindex,nofollow"
-      />
+      <SEO {...seo.login} />
 
       <div className="min-h-screen flex">
         {/* Left Panel */}
