@@ -36,7 +36,7 @@ app.use("/api/auth", authRoutes);
 // Resume routes
 app.use("/api/resumes", resumeRoutes);
 
-await listAvailableGeminiModels();
+// await listAvailableGeminiModels();
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
