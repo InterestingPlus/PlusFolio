@@ -11,6 +11,8 @@ import SamplePage from "./pages/Sample";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import LandingLayout from "./components/layout/LandingLayout";
 import TermsAndConditionsPage from "./pages/TermsAndConditionsPage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -89,6 +91,27 @@ function AppRoutes() {
         }
       />
 
+      {/* about us */}
+      <Route
+        path="/about"
+        element={
+          <LandingLayout>
+            <AboutPage />
+          </LandingLayout>
+        }
+      />
+
+      {/* contact us */}
+      <Route
+        path="/contact"
+        element={
+          <LandingLayout>
+            <ContactPage />
+          </LandingLayout>
+        }
+      />
+
+      {/* privacy policy */}
       <Route
         path="/privacy"
         element={
@@ -98,6 +121,7 @@ function AppRoutes() {
         }
       />
 
+      {/* terms and conditions */}
       <Route
         path="/terms"
         element={
