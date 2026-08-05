@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { Button } from "../components/ui/Button";
 import { Navbar } from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
 
 export function LandingPage() {
   return (
@@ -192,7 +193,7 @@ export function LandingPage() {
       </section>
 
       {/* Social Proof */}
-      <section className="py-16 bg-gray-50 border-y border-gray-100">
+      {/* <section className="py-16 bg-gray-50 border-y border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-xs font-semibold tracking-widest text-gray-400 uppercase mb-8">
             Trusted by job seekers at
@@ -206,7 +207,7 @@ export function LandingPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Banner */}
       <section className="py-24 bg-blue-600">
@@ -233,74 +234,7 @@ export function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-12">
-            <div className="col-span-2 md:col-span-1">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <FileText className="w-3.5 h-3.5 text-white" />
-                </div>
-                <span className="font-bold text-white">PlusFolio</span>
-              </div>
-              <p className="text-sm leading-relaxed text-gray-500">
-                Helping professionals craft the perfect narrative for their
-                careers through the power of artificial intelligence.
-              </p>
-            </div>
-            {[
-              {
-                title: "Product",
-                links: ["Features", "Templates", "Pricing", "Reviews"],
-              },
-              {
-                title: "Resources",
-                links: [
-                  "Resume Guide",
-                  "Career Blog",
-                  "Interview Prep",
-                  "Cover Letters",
-                ],
-              },
-              {
-                title: "Company",
-                links: ["About Us", "Contact", "Privacy", "Terms"],
-              },
-            ].map((col) => (
-              <div key={col.title}>
-                <h4 className="font-semibold text-white mb-4 text-sm">
-                  {col.title}
-                </h4>
-                <ul className="space-y-2">
-                  {col.links.map((l) => (
-                    <li key={l}>
-                      <a
-                        href="#"
-                        className="text-sm hover:text-white transition-colors"
-                      >
-                        {l}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-          <div className="border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-gray-600">
-              &copy; 2024 PlusFolio Inc. All rights reserved.
-            </p>
-            <div className="flex gap-6 text-xs">
-              <a href="#" className="hover:text-white transition-colors">
-                Privacy Policy
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
-                Terms of Service
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

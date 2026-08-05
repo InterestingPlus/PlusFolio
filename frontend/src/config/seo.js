@@ -43,13 +43,18 @@ export const seo = {
     title: "Privacy Policy | PlusFolio",
     description:
       "Read how PlusFolio protects your privacy and personal information while using our AI-powered career tools.",
+    ogDescription:
+      "We believe your personal information belongs to you. No account required for supported tools, local mode available, and you stay in control.",
     canonical: `${BASE_URL}/privacy`,
   },
 
   terms: {
     title: "Terms & Conditions | PlusFolio",
     description:
-      "Read the terms and conditions for using PlusFolio and our AI-powered career document platform.",
+      "Read the PlusFolio Terms & Conditions. Learn about our guest mode, AI generation transparency, fair usage policies, and how you retain 100% ownership of your career documents.",
+    ogDescription:
+      "Transparent, friendly, and privacy-first Terms & Conditions for PlusFolio. You retain 100% ownership of your resumes, biodatas, and career portfolios.",
+
     canonical: `${BASE_URL}/terms`,
   },
 

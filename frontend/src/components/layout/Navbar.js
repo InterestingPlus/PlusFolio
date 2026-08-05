@@ -32,13 +32,13 @@ export function Navbar() {
           {!user ? (
             <div className="flex items-center gap-3">
               <Link
-                to="/#features"
+                to="/features"
                 className="hidden sm:block text-sm text-gray-600 hover:text-gray-900 transition-colors"
               >
                 Features
               </Link>
               <Link
-                to="/#templates"
+                to="/templates"
                 className="hidden sm:block text-sm text-gray-600 hover:text-gray-900 transition-colors"
               >
                 Templates

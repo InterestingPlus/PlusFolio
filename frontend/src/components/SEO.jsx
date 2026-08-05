@@ -5,7 +5,11 @@ const DEFAULT_IMAGE = `${BASE_URL}/og-image.jpg`;
 
 export default function SEO({
   title,
+  ogTitle = title,
+
   description,
+  ogDescription = description,
+
   canonical,
   robots = "index, follow",
   image = DEFAULT_IMAGE,
@@ -23,15 +27,15 @@ export default function SEO({
 
       {/* Open Graph */}
       <meta property="og:type" content={type} />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
+      <meta property="og:title" content={ogTitle} />
+      <meta property="og:description" content={ogDescription} />
       <meta property="og:url" content={canonical} />
       <meta property="og:image" content={image} />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
+      <meta name="twitter:title" content={ogTitle} />
+      <meta name="twitter:description" content={ogDescription} />
       <meta name="twitter:image" content={image} />
     </Helmet>
   );

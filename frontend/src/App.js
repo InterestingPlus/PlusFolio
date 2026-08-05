@@ -8,6 +8,9 @@ import { CreateResumePage } from "./pages/CreateResumePage";
 import { EditorPage } from "./pages/EditorPage";
 import { PreviewPage } from "./pages/PreviewPage";
 import SamplePage from "./pages/Sample";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import LandingLayout from "./components/layout/LandingLayout";
+import TermsAndConditionsPage from "./pages/TermsAndConditionsPage";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -85,6 +88,25 @@ function AppRoutes() {
           </PublicOnlyRoute>
         }
       />
+
+      <Route
+        path="/privacy"
+        element={
+          <LandingLayout>
+            <PrivacyPolicyPage />
+          </LandingLayout>
+        }
+      />
+
+      <Route
+        path="/terms"
+        element={
+          <LandingLayout>
+            <TermsAndConditionsPage />
+          </LandingLayout>
+        }
+      />
+
       <Route
         path="/dashboard"
         element={
@@ -117,6 +139,7 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
