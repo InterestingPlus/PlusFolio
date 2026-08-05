@@ -12,13 +12,6 @@ export const seo = {
     canonical: `${BASE_URL}/`,
   },
 
-  about: {
-    title: "About PlusFolio | AI Career Tools by Interesting Plus",
-    description:
-      "Learn about PlusFolio, our mission, vision and how we help students, professionals and job seekers create career documents with AI while keeping privacy first.",
-    canonical: `${BASE_URL}/about`,
-  },
-
   login: {
     title: "Login | PlusFolio",
     description:
@@ -58,10 +51,24 @@ export const seo = {
     canonical: `${BASE_URL}/terms`,
   },
 
+  about: {
+    title: "About Us | PlusFolio",
+    description:
+      "Learn about PlusFolio, our mission, vision, and the team behind INTERESTING Plus. Discover why we're building free AI-powered career tools with privacy, simplicity, and accessibility at the core.",
+    ogDescription:
+      "Learn about PlusFolio, our mission, vision, and the team behind INTERESTING Plus. Discover why we're building free AI-powered career tools with privacy at the core.",
+    twitterDescription:
+      "Discover why we're building free AI-powered career tools with privacy, simplicity, and accessibility at the core.",
+    ogImage: `${BASE_URL}/images/seo/about-us.png`,
+    canonical: `${BASE_URL}/about`,
+  },
+
   contact: {
     title: "Contact Us | PlusFolio",
     description:
-      "Contact the PlusFolio team for support, feedback, partnerships or business inquiries.",
+      "Get in touch with the PlusFolio team. Contact INTERESTING Plus for support, feedback, partnerships, feature requests, or business inquiries.",
+    ogDescription:
+      "Get in touch with the PlusFolio team. Contact INTERESTING Plus for support, feedback, or business inquiries.",
     canonical: `${BASE_URL}/contact`,
   },
 

@@ -77,7 +77,7 @@ function TermsHero() {
         <strong className="text-slate-900 font-semibold">PlusFolio</strong>,
         created by{" "}
         <strong className="text-slate-900 font-semibold">
-          Interesting Plus
+          INTERESTING Plus
         </strong>
         . These Terms &amp; Conditions govern your use of our website, career
         tools, AI assistants, and document builders.
@@ -390,7 +390,7 @@ export default function TermsAndConditionsPage() {
                 <p>
                   Welcome to <strong>PlusFolio</strong> ("Platform", "we", "us",
                   or "our"), a product developed and operated by{" "}
-                  <strong>Interesting Plus</strong>, founded by{" "}
+                  <strong>INTERESTING Plus</strong>, founded by{" "}
                   <strong>Jatin Poriya</strong>.
                 </p>
                 <p>
@@ -596,7 +596,7 @@ export default function TermsAndConditionsPage() {
               >
                 <p>
                   While you own your personal resume content,{" "}
-                  <strong>PlusFolio and Interesting Plus</strong> retain
+                  <strong>PlusFolio and INTERESTING Plus</strong> retain
                   complete intellectual property ownership over the platform
                   itself. This includes, but is not limited to:
                 </p>
@@ -752,7 +752,7 @@ export default function TermsAndConditionsPage() {
                 <p>
                   To the maximum extent permitted by applicable law,{" "}
                   <strong>
-                    Interesting Plus, PlusFolio, and its founder Jatin Poriya
+                    INTERESTING Plus, PlusFolio, and its founder Jatin Poriya
                   </strong>{" "}
                   shall not be held liable for any indirect, incidental,
                   consequential, special, or punitive damages arising out of
