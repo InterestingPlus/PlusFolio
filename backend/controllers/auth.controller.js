@@ -114,7 +114,6 @@ export const signIn = async (req, res) => {
     // 1. Find user by email
     const allUsers = await sheetService.read("users");
 
-    console.log(allUsers);
     const user = allUsers.find(
       (u) => u.email?.toLowerCase() === email.toLowerCase(),
     );

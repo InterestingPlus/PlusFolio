@@ -1,7 +1,6 @@
 // src/pages/FAQPage.jsx
 import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import {
   Search,
   Plus,

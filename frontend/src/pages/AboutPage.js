@@ -154,7 +154,7 @@ export default function AboutPage() {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, []); 
 
   return (
     <>
