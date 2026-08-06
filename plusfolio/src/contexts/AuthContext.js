@@ -7,7 +7,7 @@ import {
   useState,
   useCallback,
 } from "react";
-import { authApi } from "../lib/api";
+import { authApi } from "@/lib/api";
 
 const AuthContext = createContext(undefined);
 

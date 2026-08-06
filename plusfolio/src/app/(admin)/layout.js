@@ -9,12 +9,12 @@ export default function Layout({ children }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && user) {
-      router.replace("/dashboard");
+    if (!loading && !user) {
+      router.replace("/login");
     }
   }, [loading, user, router]);
 
-  // Session verify hone tak wait karo
+  // Session verify hone tak loader
   if (loading) {
     return (
       <main className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -26,8 +26,8 @@ export default function Layout({ children }) {
     );
   }
 
-  // Redirect hone tak kuch mat dikhao
-  if (user) {
+  // Redirect hone tak blank ya loader
+  if (!user) {
     return null;
   }
 
