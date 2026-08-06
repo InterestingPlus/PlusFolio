@@ -13,6 +13,7 @@ import LandingLayout from "./components/layout/LandingLayout";
 import TermsAndConditionsPage from "./pages/TermsAndConditionsPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
+import FAQPage from "./pages/FAQPage";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -127,6 +128,16 @@ function AppRoutes() {
         element={
           <LandingLayout>
             <TermsAndConditionsPage />
+          </LandingLayout>
+        }
+      />
+
+      {/* FAQ */}
+      <Route
+        path="/faq"
+        element={
+          <LandingLayout>
+            <FAQPage />
           </LandingLayout>
         }
       />

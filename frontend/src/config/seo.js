@@ -75,7 +75,9 @@ export const seo = {
   faq: {
     title: "Frequently Asked Questions | PlusFolio",
     description:
-      "Find answers to common questions about AI resume building, biodata creation, ATS checking and PlusFolio features.",
+      "Find answers to frequently asked questions about PlusFolio, AI Resume Builder, Biodata Builder, ATS Checker, accounts, privacy, templates, and more.",
+    twitterDescription:
+      "Find answers to frequently asked questions about PlusFolio, AI Resume Builder, Biodata Builder, accounts, and privacy.",
     canonical: `${BASE_URL}/faq`,
   },
 
