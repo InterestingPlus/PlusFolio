@@ -74,7 +74,7 @@ function ContactHero() {
     <div className="mx-auto max-w-3xl text-center pb-12 border-b border-slate-200/80">
       <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3.5 py-1.5 text-xs font-semibold text-blue-700 ring-1 ring-inset ring-blue-600/10 mb-6">
         <MessageSquare className="h-4 w-4 text-blue-600" />
-        <span>We're Here to Help ! test</span>
+        <span>We're Here to Help</span>
       </div>
 
       <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
