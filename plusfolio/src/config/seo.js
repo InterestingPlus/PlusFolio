@@ -60,7 +60,7 @@ export const seo = {
       "Learn about PlusFolio, our mission, vision, and the team behind INTERESTING Plus. Discover why we're building free AI-powered career tools with privacy at the core.",
     twitterDescription:
       "Discover why we're building free AI-powered career tools with privacy, simplicity, and accessibility at the core.",
-    ogImage: `${BASE_URL}/images/seo/about-us.png`,
+    // ogImage: `${BASE_URL}/images/seo/about-us.png`,
     canonical: `${BASE_URL}/about`,
   },
 
