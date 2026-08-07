@@ -110,16 +110,50 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  // TODO:
+  // Once GA4 is configured inside Google Tag Manager,
+  // remove the standalone Google Analytics scripts
+  // to avoid duplicate pageview tracking.
+
   return (
     <html lang="en">
-      <body>
-        {/* Google Analytics */}
+      <head>
+        {/* Google Tag Manager - Head */}
+        <Script id="google-tag-manager" strategy="afterInteractive">
+          {`
+          (function(w,d,s,l,i){
+            w[l]=w[l]||[];
+            w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+            var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),
+            dl=l!='dataLayer'?'&l='+l:'';
+            j.async=true;
+            j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+            f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-PM3RLMXW');
+        `}
+        </Script>
+      </head>
 
+      <body>
+        {/* Google Tag Manager - Body */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-PM3RLMXW"
+            height="0"
+            width="0"
+            style={{
+              display: "none",
+              visibility: "hidden",
+            }}
+          />
+        </noscript>
+
+        {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-PHMS5LB36B"
           strategy="afterInteractive"
         />
-
         <Script id="google-analytics" strategy="afterInteractive">
           {`
               window.dataLayer = window.dataLayer || [];
@@ -135,7 +169,6 @@ export default function RootLayout({ children }) {
         </Script>
 
         {/* Structured Data */}
-
         <Script
           id="software-schema"
           type="application/ld+json"
