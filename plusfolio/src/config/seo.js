@@ -14,7 +14,7 @@ export const seo = {
   },
 
   login: {
-    title: "Login | PlusFolio",
+    title: "Login",
     description:
       "Login to your PlusFolio account to access your saved resumes and career tools.",
     canonical: `${BASE_URL}/login`,
@@ -22,7 +22,7 @@ export const seo = {
   },
 
   signup: {
-    title: "Create Account | PlusFolio",
+    title: "Create Account",
     description:
       "Create your free PlusFolio account to securely save and manage your resumes and career documents.",
     canonical: `${BASE_URL}/signup`,
@@ -34,7 +34,7 @@ export const seo = {
   // ===========================
 
   privacy: {
-    title: "Privacy Policy | PlusFolio",
+    title: "Privacy Policy",
     description:
       "Read how PlusFolio protects your privacy and personal information while using our AI-powered career tools.",
     ogDescription:
@@ -43,7 +43,7 @@ export const seo = {
   },
 
   terms: {
-    title: "Terms & Conditions | PlusFolio",
+    title: "Terms & Conditions",
     description:
       "Read the PlusFolio Terms & Conditions. Learn about our guest mode, AI generation transparency, fair usage policies, and how you retain 100% ownership of your career documents.",
     ogDescription:
@@ -53,7 +53,7 @@ export const seo = {
   },
 
   about: {
-    title: "About Us | PlusFolio",
+    title: "About Us",
     description:
       "Learn about PlusFolio, our mission, vision, and the team behind INTERESTING Plus. Discover why we're building free AI-powered career tools with privacy, simplicity, and accessibility at the core.",
     ogDescription:
@@ -65,7 +65,7 @@ export const seo = {
   },
 
   contact: {
-    title: "Contact Us | PlusFolio",
+    title: "Contact Us",
     description:
       "Get in touch with the PlusFolio team. Contact INTERESTING Plus for support, feedback, partnerships, feature requests, or business inquiries.",
     ogDescription:
@@ -74,7 +74,7 @@ export const seo = {
   },
 
   faq: {
-    title: "Frequently Asked Questions | PlusFolio",
+    title: "Frequently Asked Questions",
     description:
       "Find answers to frequently asked questions about PlusFolio, AI Resume Builder, Biodata Builder, ATS Checker, accounts, privacy, templates, and more.",
     twitterDescription:
@@ -83,14 +83,14 @@ export const seo = {
   },
 
   pricing: {
-    title: "Pricing | PlusFolio Premium",
+    title: "Pricing Premium",
     description:
       "Compare Free and Premium plans of PlusFolio and unlock advanced AI features, templates and career tools.",
     canonical: `${BASE_URL}/pricing`,
   },
 
   blog: {
-    title: "Career Blog | PlusFolio",
+    title: "Career Blog",
     description:
       "Explore career advice, resume writing tips, interview preparation, ATS optimization and job search guides.",
     canonical: `${BASE_URL}/blog`,
@@ -101,35 +101,35 @@ export const seo = {
   // ===========================
 
   resumeBuilder: {
-    title: "Free AI Resume Builder | PlusFolio",
+    title: "Free AI Resume Builder",
     description:
       "Generate professional ATS-friendly resumes in seconds using AI. Choose beautiful templates and download your resume for free.",
     canonical: `${BASE_URL}/resume-builder`,
   },
 
   biodataMaker: {
-    title: "Free Biodata Maker | PlusFolio",
+    title: "Free Biodata Maker",
     description:
       "Create professional marriage biodatas with modern templates. Simple, fast and privacy-first.",
     canonical: `${BASE_URL}/biodata-maker`,
   },
 
   atsChecker: {
-    title: "ATS Resume Checker | PlusFolio",
+    title: "ATS Resume Checker",
     description:
       "Analyze your resume with ATS-friendly checks and improve your chances of getting shortlisted.",
     canonical: `${BASE_URL}/ats-checker`,
   },
 
   coverLetter: {
-    title: "AI Cover Letter Generator | PlusFolio",
+    title: "AI Cover Letter Generator",
     description:
       "Generate personalized and professional cover letters with AI for your next job application.",
     canonical: `${BASE_URL}/cover-letter-generator`,
   },
 
   portfolioBuilder: {
-    title: "Portfolio Builder | PlusFolio",
+    title: "Portfolio Builder",
     description:
       "Build a professional portfolio website to showcase your skills, projects and achievements.",
     canonical: `${BASE_URL}/portfolio-builder`,
@@ -140,7 +140,7 @@ export const seo = {
   // ===========================
 
   resumeExamples: {
-    title: "Resume Examples | PlusFolio",
+    title: "Resume Examples",
     description:
       "Browse professional resume examples for students, freshers and experienced professionals.",
     canonical: `${BASE_URL}/resume-examples`,
@@ -148,7 +148,7 @@ export const seo = {
   },
 
   resumeTemplates: {
-    title: "Free Resume Templates | PlusFolio",
+    title: "Free Resume Templates",
     description:
       "Download and customize modern, ATS-friendly resume templates for every profession.",
     canonical: `${BASE_URL}/resume-templates`,
@@ -156,7 +156,7 @@ export const seo = {
   },
 
   resumeSamples: {
-    title: "Resume Samples | PlusFolio",
+    title: "Resume Samples",
     description:
       "Explore ready-to-use resume samples and learn how to create impressive resumes.",
     canonical: `${BASE_URL}/resume-samples`,
@@ -164,7 +164,7 @@ export const seo = {
   },
 
   biodataSamples: {
-    title: "Marriage Biodata Samples | PlusFolio",
+    title: "Marriage Biodata Samples",
     description:
       "View beautifully designed marriage biodata samples and templates for free.",
     canonical: `${BASE_URL}/biodata-samples`,
@@ -172,7 +172,7 @@ export const seo = {
   },
 
   resumeFormat: {
-    title: "Best Resume Format | PlusFolio",
+    title: "Best Resume Format",
     description:
       "Learn which resume format is best for freshers, experienced professionals and job seekers.",
     canonical: `${BASE_URL}/resume-format`,
@@ -180,7 +180,7 @@ export const seo = {
   },
 
   resumeTips: {
-    title: "Resume Writing Tips | PlusFolio",
+    title: "Resume Writing Tips",
     description:
       "Discover practical resume writing tips to improve your resume and increase interview opportunities.",
     canonical: `${BASE_URL}/resume-tips`,
@@ -188,15 +188,15 @@ export const seo = {
   },
 
   interviewTips: {
-    title: "Interview Tips | PlusFolio",
+    title: "Interview Tips",
     description:
-      "Prepare confidently with interview tips, common questions and expert career advice.",
+      "Prepare confidntly with interview tips, common questions and expert career advice.",
     canonical: `${BASE_URL}/interview-tips`,
     type: "article",
   },
 
   careerBlog: {
-    title: "Career Advice Blog | PlusFolio",
+    title: "Career Advice Blog",
     description:
       "Read expert articles on careers, resumes, interviews, AI tools, productivity and professional growth.",
     canonical: `${BASE_URL}/career-blog`,

@@ -5,6 +5,13 @@ import { AuthProvider } from "@/contexts/AuthContext";
 const BASE_URL =
   process.env.NEXT_PUBLIC_CLIENT_URL || "https://plusfolio.netlify.app";
 
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#5B3DF5" },
+    { media: "(prefers-color-scheme: dark)", color: "#5B3DF5" },
+  ],
+};
+
 export const metadata = {
   metadataBase: new URL(BASE_URL),
 
@@ -14,7 +21,7 @@ export const metadata = {
   },
 
   description:
-    "Create ATS-friendly resumes, professional biodatas, cover letters, portfolios and career documents with AI. Free, privacy-first and easy to use. Powered by Interesting Plus.",
+    "Create ATS-friendly resumes, professional biodatas, cover letters, portfolios and career documents with AI. Free, privacy-first and easy to use. Powered by INTERESTING Plus.",
 
   keywords: [
     "PlusFolio",
@@ -29,19 +36,19 @@ export const metadata = {
     "Portfolio Builder",
     "Cover Letter Generator",
     "Career Tools",
-    "Interesting Plus",
+    "INTERESTING Plus",
     "Jatin Poriya",
   ],
 
   authors: [
     {
-      name: "Jatin Poriya",
+      name: "INTERESTING Plus",
     },
   ],
 
-  creator: "Interesting Plus",
+  creator: "INTERESTING Plus",
 
-  publisher: "Interesting Plus",
+  publisher: "INTERESTING Plus",
 
   applicationName: "PlusFolio",
 
@@ -100,8 +107,6 @@ export const metadata = {
     title: "PlusFolio",
     statusBarStyle: "black-translucent",
   },
-
-  themeColor: "#5B3DF5",
 };
 
 export default function RootLayout({ children }) {
@@ -117,16 +122,16 @@ export default function RootLayout({ children }) {
 
         <Script id="google-analytics" strategy="afterInteractive">
           {`
-            window.dataLayer = window.dataLayer || [];
+              window.dataLayer = window.dataLayer || [];
 
-            function gtag(){
-              dataLayer.push(arguments);
-            }
+              function gtag(){
+                dataLayer.push(arguments);
+              }
 
-            gtag('js', new Date());
+              gtag('js', new Date());
 
-            gtag('config','G-PHMS5LB36B');
-          `}
+              gtag('config','G-PHMS5LB36B');
+            `}
         </Script>
 
         {/* Structured Data */}
@@ -134,7 +139,7 @@ export default function RootLayout({ children }) {
         <Script
           id="software-schema"
           type="application/ld+json"
-          strategy="afterInteractive"
+          // strategy="afterInteractive"
         >
           {JSON.stringify({
             "@context": "https://schema.org",

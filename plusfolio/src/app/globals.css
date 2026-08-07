@@ -24,7 +24,9 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
-a {
+
+a,
+button {
   cursor: pointer !important;
 }
 

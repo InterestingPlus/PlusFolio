@@ -1,23 +1,21 @@
 "use client";
 
-// import { Link, useNavigate } from "react-router-dom";
 import { LogOut, User } from "lucide-react";
-// import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "../ui/Button";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 function Navbar() {
-  //   const { user, signOut } = useAuth();
-  //   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
 
   const router = useRouter();
 
   const handleSignOut = async () => {
-    // await signOut();
-    router.push("/");
-    // navigate("/");
+    await signOut();
+    router.replace("/");
   };
 
   return (
@@ -42,33 +40,33 @@ function Navbar() {
             </span>
           </Link>
 
-          {/* {!user ? ( */}
-          <div className="flex items-center gap-3">
-            <Link
-              href="/features"
-              className="hidden sm:block text-sm text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              Features
-            </Link>
-            <Link
-              href="/templates"
-              className="hidden sm:block text-sm text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              Templates
-            </Link>
-            <Link href="/login">
-              <Button variant="ghost" size="sm">
-                Log in
-              </Button>
-            </Link>
-            <Link href="/signup">
-              <Button size="sm">Get Started</Button>
-            </Link>
-          </div>
-          {/* ) : (
+          {!user ? (
+            <div className="flex items-center gap-3">
+              <Link
+                href="/features"
+                className="hidden sm:block text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Features
+              </Link>
+              <Link
+                href="/templates"
+                className="hidden sm:block text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Templates
+              </Link>
+              <Link href="/login">
+                <Button variant="ghost" size="sm">
+                  Log in
+                </Button>
+              </Link>
+              <Link href="/signup">
+                <Button size="sm">Get Started</Button>
+              </Link>
+            </div>
+          ) : (
             <div className="flex items-center gap-3">
               <Link href="/dashboard">
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="cursor-pointer">
                   <User className="w-4 h-4" />
                   Dashboard
                 </Button>
@@ -78,7 +76,7 @@ function Navbar() {
                 Sign out
               </Button>
             </div>
-          )} */}
+          )}
         </div>
       </div>
     </nav>
