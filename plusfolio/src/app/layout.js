@@ -133,6 +133,15 @@ export default function RootLayout({ children }) {
           })(window,document,'script','dataLayer','GTM-PM3RLMXW');
         `}
         </Script>
+
+        {/* Google AdSense */}
+        <Script
+          id="google-adsense"
+          async
+          // strategy="afterInteractive"
+          crossOrigin="anonymous"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3770012928053703"
+        />
       </head>
 
       <body>
